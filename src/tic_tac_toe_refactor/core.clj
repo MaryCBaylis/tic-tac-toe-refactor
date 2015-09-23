@@ -1,6 +1,7 @@
 (ns tic-tac-toe-refactor.core
   (:gen-class)
-  (:require [tic-tac-toe-refactor.data :as data]))
+  (:require [tic-tac-toe-refactor.data :as data])
+  (:require [clojure.string :as string]))
 
 (defn get-input
   []
@@ -17,6 +18,11 @@
   []
   data/initial-board)
 
+(defn displayable-board
+  [board]
+  (str (string/join " " (subvec board 0 3)) "\n" (string/join " " (subvec board 3 6)) "\n" (string/join " " (subvec board 6)))
+    )
+
 (defn -main
   "I play tic-tac-toe!"
   [& args]
@@ -24,6 +30,6 @@
   (println "Shall we play a game?  (Y)es/(N)o?")
 
   (if (play-again? (get-input))
-      (println (create-board))
+      (println (displayable-board (create-board)))
       (println "Why'd you even?....."))
   (println "See you next time!"))
