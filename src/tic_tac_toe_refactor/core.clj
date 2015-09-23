@@ -11,8 +11,11 @@
 
 (defn play-again?
   [input]
-  false
-)
+  (some #{input} data/affirmative-list))
+
+(defn create-board
+  []
+  data/initial-board)
 
 (defn -main
   "I play tic-tac-toe!"
@@ -21,7 +24,6 @@
   (println "Shall we play a game?  (Y)es/(N)o?")
 
   (if (play-again? (get-input))
-      (println "Play a game!")
+      (println (create-board))
       (println "Why'd you even?....."))
-  (println "See you next time!")
-)
+  (println "See you next time!"))
