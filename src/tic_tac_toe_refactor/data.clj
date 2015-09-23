@@ -11,4 +11,5 @@
 (def instruction "Enter the number of the square you would like to claim.\nYou can enter (Q)uit or E(x)it at anytime.")
 (def woops "Er... That wasn't quite right. Try again!")
 (def comp-turn "Now it's my turn to take a stab!")
+(def player-turn "Gimme your best shot!")
 

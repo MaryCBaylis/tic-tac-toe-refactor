@@ -24,12 +24,23 @@
     (board/refresh board :player choice)
     (do (println data/woops)(recur board))))
 
+(defn computer-phase
+  [board])
+  ;;THIS is where it gets fun.  Let's make a ruthless comp!
+  ;;Steps to never lose, in order of priority:
+  ;;1: If you're one move away from victory, take it
+  ;;2: If your opponent is one move away from victory, block!
+  ;;3: Take the move that will allow you the most lanes to victory)
+
+;;If I have time, maybe make the compy learn from losses, assuming the player plays again and again
+
 (defn game-loop
   [board player message]
+  ;;Check for victory or stalemate, first thing
   (println message)
   (if (= :player player)
     (recur (player-phase board) :computer data/comp-turn)
-    (println "compy turn!")))
+    (recur (computer-phase board :player data/player-turn))))
 
 (defn -main
   [& args]
