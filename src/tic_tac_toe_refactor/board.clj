@@ -13,7 +13,7 @@
 
 (defn legal-square?
   [board square]
-  (some #{(Integer. square)} board))
+  (and (re-matches #"[1-9]" square) (some #{(Integer. square)} board)))
 
 (defn get-mark
   [player]
@@ -24,3 +24,7 @@
 (defn refresh
   [board player square]
   (assoc board (- (Integer. square) 1) (get-mark player)))
+
+(defn possible-moves
+  [board]
+  )

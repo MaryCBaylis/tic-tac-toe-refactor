@@ -25,7 +25,8 @@
     (do (println data/woops)(recur board))))
 
 (defn computer-phase
-  [board])
+  [board]
+  board)
   ;;THIS is where it gets fun.  Let's make a ruthless comp!
   ;;Steps to never lose, in order of priority:
   ;;1: If you're one move away from victory, take it
@@ -40,7 +41,7 @@
   (println message)
   (if (= :player player)
     (recur (player-phase board) :computer data/comp-turn)
-    (recur (computer-phase board :player data/player-turn))))
+    (recur (computer-phase board) :player data/player-turn)))
 
 (defn -main
   [& args]
