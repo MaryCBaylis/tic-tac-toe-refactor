@@ -10,3 +10,11 @@
 (defn prettify
   [board]
   (str (string/join " " (subvec board 0 3)) "\n" (string/join " " (subvec board 3 6)) "\n" (string/join " " (subvec board 6))))
+
+(defn legal-square?
+  [board square]
+  (some #{(Integer. square)} board))
+
+(defn refresh
+  [board player square]
+  board)
