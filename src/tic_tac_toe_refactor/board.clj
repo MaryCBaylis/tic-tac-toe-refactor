@@ -1,7 +1,8 @@
 (ns tic-tac-toe-refactor.board
   (:gen-class)
   (:require [tic-tac-toe-refactor.data :as data]
-    [clojure.string :as string]))
+    [clojure.string :as string]
+    [clojure.set :as set]))
 
 (defn create
   []
@@ -28,3 +29,24 @@
 (defn possible-moves
   [board]
   )
+
+(defn check-for-win
+  [squares]
+  (set/subset? #{true} (into #{} (for [win data/possible-wins]
+    (set/subset? (into #{} win) (into #{} squares))))))
+
+(defn winner
+  [board mark] 
+
+  (def squares 
+    (map inc (map first 
+      (filter #(= (second %) mark) 
+        (map-indexed vector board))))))
+
+;   (def computer-squares 
+;     (map inc (map first 
+;       (filter #(= (second %) mark) 
+;         (map-indexed vector board)))))
+
+
+;   )
