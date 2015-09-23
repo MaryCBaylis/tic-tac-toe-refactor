@@ -15,6 +15,12 @@
   [board square]
   (some #{(Integer. square)} board))
 
+(defn get-mark
+  [player]
+  (if (= :player player)
+    "X"
+    "O"))
+
 (defn refresh
   [board player square]
-  board)
+  (assoc board (- (Integer. square) 1) (get-mark player)))

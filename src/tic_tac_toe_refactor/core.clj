@@ -29,11 +29,9 @@
   (println message)
   (if (= :player player)
     (recur (player-phase board) :computer data/comp-turn)
-    (println "compy turn!"))
-  )
+    (println "compy turn!")))
 
 (defn -main
-  "I play tic-tac-toe!"
   [& args]
   (println data/welcome-message)
 
