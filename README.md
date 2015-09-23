@@ -1,36 +1,20 @@
 # tic-tac-toe-refactor
 
-FIXME: description
+##What is this?
+Refactoring my work on tic-tac-toe.  Why?
 
-## Installation
+###1.  
+I kept going back and forth in my head on whether or not I should use a 2D map or a simple list for the board. 2D map is getting messy.  Let's try a list and see how far we get.
 
-Download from http://example.com/FIXME.
+###2. 
+Apparently my formatting is all wrong.  I think it's neater to space the millions of parentheses a certain way (sooooo many parantheses) but Lisp standards disagree.
 
-## Usage
+###3.
+I need to modularize my functions better so that I can actually test them.  Testing got really weird when I had functions who were responsible for manipulating data and displaying data.  Keep them separate!
 
-FIXME: explanation
+###4.
+I designed the last one way to OOPy and it's been a pain to fix.  I'm going to try to be more functional from the start.
 
-    $ java -jar tic-tac-toe-refactor-0.1.0-standalone.jar [args]
+##Clojure
+A crazy funtional programming language with immutable data-structures.  Soooo immutable.  Second stab.  Here we go!
 
-## Options
-
-FIXME: listing of options this app accepts.
-
-## Examples
-
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
-
-## License
-
-Copyright © 2015 FIXME
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
