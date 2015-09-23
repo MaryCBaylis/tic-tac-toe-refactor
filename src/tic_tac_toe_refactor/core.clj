@@ -21,7 +21,7 @@
   (println data/instruction)
   (def choice (get-input))
   (if (board/legal-square? board choice)
-    (board/refresh board :player choice)
+    (board/refresh board data/player-mark choice)
     (do (println data/woops)(recur board))))
 
 (defn computer-phase

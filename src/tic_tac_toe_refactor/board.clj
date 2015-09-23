@@ -16,15 +16,9 @@
   [board square]
   (and (re-matches #"[1-9]" square) (some #{(Integer. square)} board)))
 
-(defn get-mark
-  [player]
-  (if (= :player player)
-    "X"
-    "O"))
-
 (defn refresh
-  [board player square]
-  (assoc board (- (Integer. square) 1) (get-mark player)))
+  [board mark square]
+  (assoc board (- (Integer. square) 1) mark))
 
 (defn possible-moves
   [board]
@@ -35,13 +29,14 @@
   (set/subset? #{true} (into #{} (for [win data/possible-wins]
     (set/subset? (into #{} win) (into #{} squares))))))
 
-(defn winner
+(defn winner?
   [board mark] 
 
   (def squares 
     (map inc (map first 
       (filter #(= (second %) mark) 
-        (map-indexed vector board))))))
+        (map-indexed vector board)))))
+  (check-for-win squares))
 
 ;   (def computer-squares 
 ;     (map inc (map first 
