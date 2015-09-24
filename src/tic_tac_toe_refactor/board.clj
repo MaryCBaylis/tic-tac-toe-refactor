@@ -43,4 +43,4 @@
 
 (defn game-over?
   [board mark-1 mark-2]
-  false)
+  (or (full? board) (winner? board mark-1) (winner? board mark-2)))

@@ -17,4 +17,6 @@
 (def computer-mark "O")
 (def player-win "Looks like you win this one!")
 (def computer-win "Ha! This one's all mine!")
+(def tie "A strange game. The only winning move is not to play. How about a nice game of chess?")
+(def ask-again "Care to play again? (Y)es/(N)o?")
 

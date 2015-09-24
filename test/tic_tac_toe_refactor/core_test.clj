@@ -50,3 +50,17 @@
     (is (= true (full? full-board))))
   (testing "Returns false if there are available squares"
     (is (= false (full? no-moves-board)))))
+
+(deftest test-game-over?
+  (def full-board ["O" "X" "O" "X" "O" "X" "O" "X" "O"])
+  (def x-board ["X" "O" 3 "X" "O" 6 "X" 8 9])
+  (def o-board ["O" "X" 3 "O" "X" 6 "O" 8 9])
+  (def board [1 2 3 4 5 6 7 8 9] )
+  (testing "Game is over when board is full"
+    (is (= true (game-over? full-board "X" "O"))))
+  (testing "Game is over when X has won"
+    (is (= true (game-over? x-board "X" "O"))))
+  (testing "Game is over when Y has won"
+    (is (= true (game-over? o-board "X" "O"))))
+  (testing "Game is not over when no one has won and squares are still available"
+    (is (= false (game-over? board "X" "O")))))

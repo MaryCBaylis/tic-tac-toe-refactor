@@ -21,8 +21,8 @@
   (println data/instruction)
   (def choice (get-input))
   (if (board/legal-square? board choice)
-    (board/refresh board data/player-mark choice)
-    (do (println data/woops)(recur board))))
+      (board/refresh board data/player-mark choice)
+      (do (println data/woops)(recur board))))
 
 (defn computer-phase
   [board]
@@ -35,20 +35,27 @@
 
 ;;If I have time, maybe make the compy learn from losses, assuming the player plays again and again
 
+(defn end-game-message
+  [board]
+  (if (board/winner? board "X")
+      data/player-win
+      (if (board/winner? board "Y")
+          data/computer-win
+          data/tie)))
+
 (defn game-loop
   [board player message]
   ;;Check for victory or stalemate, first thing
   (if (board/game-over? board data/player-mark data/computer-mark)
-    (println ("It's all over!")))
-  (if (board/winner? board "X")
-    (println data/player-win))
-  (if (board/winner? board "Y")
-    (println data/computer-win))
-
-  (println message)
-  (if (= :player player)
-    (recur (player-phase board) :computer data/comp-turn)
-    (recur (computer-phase board) :player data/player-turn)))
+      (do (println (board/prettify board))
+          (println (end-game-message board))
+          (println data/ask-again)
+          (if (play? (get-input))
+              (recur (board/create) :player data/start-message)))
+      (do (println message)
+          (if (= :player player)
+              (recur (player-phase board) :computer data/comp-turn)
+              (recur (computer-phase board) :player data/player-turn)))))
 
 (defn -main
   [& args]
