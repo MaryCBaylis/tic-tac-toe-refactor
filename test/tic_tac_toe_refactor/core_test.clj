@@ -42,3 +42,11 @@
     (is (= true (winner? d-board "X"))))
   (testing "No wins should return false"
     (is (= false (winner? no-board "O")))))
+
+(deftest test-full?
+  (def full-board ["O" "X" "O" "X" "O" "X" "O" "X" "O"])
+  (def no-moves-board [1 2 3 4 5 6 7 8 9] )
+  (testing "Returns true if there are no more moves"
+    (is (= true (full? full-board))))
+  (testing "Returns false if there are available squares"
+    (is (= false (full? no-moves-board)))))

@@ -31,17 +31,16 @@
 
 (defn winner?
   [board mark] 
-
   (def squares 
     (map inc (map first 
       (filter #(= (second %) mark) 
         (map-indexed vector board)))))
   (check-for-win squares))
 
-;   (def computer-squares 
-;     (map inc (map first 
-;       (filter #(= (second %) mark) 
-;         (map-indexed vector board)))))
+(defn full?
+  [board]
+  (empty? (filter #(number? %) board)))
 
-
-;   )
+(defn game-over?
+  [board mark-1 mark-2]
+  false)

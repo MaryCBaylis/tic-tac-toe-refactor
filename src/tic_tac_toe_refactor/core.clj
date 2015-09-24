@@ -38,6 +38,13 @@
 (defn game-loop
   [board player message]
   ;;Check for victory or stalemate, first thing
+  (if (board/game-over? board data/player-mark data/computer-mark)
+    (println ("It's all over!")))
+  (if (board/winner? board "X")
+    (println data/player-win))
+  (if (board/winner? board "Y")
+    (println data/computer-win))
+
   (println message)
   (if (= :player player)
     (recur (player-phase board) :computer data/comp-turn)
