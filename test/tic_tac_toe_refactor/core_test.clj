@@ -64,3 +64,11 @@
     (is (= true (game-over? o-board "X" "O"))))
   (testing "Game is not over when no one has won and squares are still available"
     (is (= false (game-over? board "X" "O")))))
+
+(deftest test-possible-moves
+  (def full-board ["O" "X" "O" "X" "O" "X" "O" "X" "O"])
+  (def partial-board [1 2 3 4 5 6 7 "X" "O"])
+  (testing "Returns empty list when no moves are left"
+    (is (= '() (possible-moves full-board))))
+  (testing "Returns correct list of possible moves"
+    (is (= '(1 2 3 4 5 6 7) (possible-moves partial-board)))))

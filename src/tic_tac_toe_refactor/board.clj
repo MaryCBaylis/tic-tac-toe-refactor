@@ -22,7 +22,7 @@
 
 (defn possible-moves
   [board]
-  )
+  (filter #(number? %) board))
 
 (defn check-for-win
   [squares]
@@ -39,7 +39,7 @@
 
 (defn full?
   [board]
-  (empty? (filter #(number? %) board)))
+  (empty? (possible-moves board)))
 
 (defn game-over?
   [board mark-1 mark-2]

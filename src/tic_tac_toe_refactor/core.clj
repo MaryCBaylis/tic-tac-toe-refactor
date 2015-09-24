@@ -2,7 +2,8 @@
   (:gen-class)
   (:require [tic-tac-toe-refactor.data :as data]
     [clojure.string :as string]
-    [tic-tac-toe-refactor.board :as board]))
+    [tic-tac-toe-refactor.board :as board]
+    [tic-tac-toe-refactor.computer :as comp]))
 
 (defn get-input
   []
@@ -26,6 +27,7 @@
 
 (defn computer-phase
   [board]
+  (println (board/prettify board))
   board)
   ;;THIS is where it gets fun.  Let's make a ruthless comp!
   ;;Steps to never lose, in order of priority:
