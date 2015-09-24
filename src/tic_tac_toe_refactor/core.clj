@@ -3,13 +3,14 @@
   (:require [tic-tac-toe-refactor.data :as data]
     [clojure.string :as string]
     [tic-tac-toe-refactor.board :as board]
-    [tic-tac-toe-refactor.computer :as comp]))
+    [tic-tac-toe-refactor.computer :as comp]
+    [tic-tac-toe-refactor.player :as player]))
 
 (defn get-input
   []
   (def input (str (read-line)))
   (if (some #{string/lower-case input} data/quit-list)
-      (System/exit 0)
+      (do (println data/farewell) (System/exit 0))
       input))
 
 (defn play?
@@ -39,9 +40,9 @@
 
 (defn end-game-message
   [board]
-  (if (board/winner? board "X")
+  (if (player/win? board "X")
       data/player-win
-      (if (board/winner? board "Y")
+      (if (player/win? board "Y")
           data/computer-win
           data/tie)))
 

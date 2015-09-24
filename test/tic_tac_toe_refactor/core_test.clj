@@ -1,7 +1,8 @@
 (ns tic-tac-toe-refactor.core-test
   (:require [clojure.test :refer :all]
             [tic-tac-toe-refactor.core :refer :all]
-            [tic-tac-toe-refactor.board :refer :all]))
+            [tic-tac-toe-refactor.board :refer :all]
+            [tic-tac-toe-refactor.player :refer :all]))
 ;;example
 ; (deftest a-test
 ;   (testing "FIXME, I fail."
@@ -19,7 +20,7 @@
   (testing "Returns false if player has no wins"
     (is (= false (check-for-win '(1 2 5 7))))))
 
-(deftest test-winner?
+(deftest test-win?
   (def x-board ["X" "O" 3 "X" "O" 6 "X" 8 9])
   (def o-board ["O" "X" 3 "O" "X" 6 "O" 8 9])
   (def v-board [1 "X" 3 4 "X" 6 7 "X" 9])
@@ -27,21 +28,21 @@
   (def d-board ["X" 2 3 4 "X" 6 7 8 "X"])
   (def no-board [1 2 3 4 5 6 7 8 9])
   (testing "X should win"
-    (is (= true (winner? x-board "X"))))
+    (is (= true (win? x-board "X"))))
   (testing "O should lose"
-    (is (= false (winner? x-board "O"))))
+    (is (= false (win? x-board "O"))))
   (testing "O should win"
-    (is (= true (winner? o-board "O"))))
+    (is (= true (win? o-board "O"))))
   (testing "X should lose"
-    (is (= false (winner? o-board "X"))))
+    (is (= false (win? o-board "X"))))
   (testing "Vertical wins should return true"
-    (is (= true (winner? v-board "X"))))
+    (is (= true (win? v-board "X"))))
   (testing "Horizontal wins should return true"
-    (is (= true (winner? h-board "O"))))
+    (is (= true (win? h-board "O"))))
   (testing "Diagonal wins should return true"
-    (is (= true (winner? d-board "X"))))
+    (is (= true (win? d-board "X"))))
   (testing "No wins should return false"
-    (is (= false (winner? no-board "O")))))
+    (is (= false (win? no-board "O")))))
 
 (deftest test-full?
   (def full-board ["O" "X" "O" "X" "O" "X" "O" "X" "O"])
