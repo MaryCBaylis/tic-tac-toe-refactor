@@ -2,7 +2,8 @@
   (:require [clojure.test :refer :all]
             [tic-tac-toe-refactor.core :refer :all]
             [tic-tac-toe-refactor.board :refer :all]
-            [tic-tac-toe-refactor.player :refer :all]))
+            [tic-tac-toe-refactor.player :refer :all]
+            [tic-tac-toe-refactor.computer :refer :all]))
 ;;example
 ; (deftest a-test
 ;   (testing "FIXME, I fail."
@@ -66,10 +67,28 @@
   (testing "Game is not over when no one has won and squares are still available"
     (is (= false (game-over? board "X" "O")))))
 
-(deftest test-possible-moves
+(deftest test-unclaimed-squares
   (def full-board ["O" "X" "O" "X" "O" "X" "O" "X" "O"])
   (def partial-board [1 2 3 4 5 6 7 "X" "O"])
   (testing "Returns empty list when no moves are left"
-    (is (= '() (possible-moves full-board))))
+    (is (= '() (unclaimed-squares full-board))))
   (testing "Returns correct list of possible moves"
-    (is (= '(1 2 3 4 5 6 7) (possible-moves partial-board)))))
+    (is (= '(1 2 3 4 5 6 7) (unclaimed-squares partial-board)))))
+
+(deftest test-possible-wins
+  (def empty-board [1 2 3 4 5 6 7 8 9])
+  (def played-board ["O" "O" 3 4 "O" "X" 7 8 9])
+  (testing "Returns correct possible wins for X on board with plays already made"
+    (is (= '([7 8 9] [3 6 9]) (possible-wins played-board (unclaimed-squares played-board) "X"))))
+  (testing "Returns correct possible wins for O on board with plays already made"
+    (is (= '([1 2 3] [7 8 9] [1 4 7] [2 5 8] [1 5 9] [3 5 7]) (possible-wins played-board (unclaimed-squares played-board) "O"))))
+  (testing "Returns all possible wins for empty board"
+    (is (= '([1 2 3] [4 5 6] [7 8 9] [1 4 7] [2 5 8] [3 6 9] [1 5 9] [3 5 7]) (possible-wins empty-board (unclaimed-squares empty-board) "X")))))
+
+(deftest test-possible-immediate-wins
+  (def multi-win-board ["O" "O" 3 4 "O" "X" 7 8 9])
+  (def no-wins-board ["X" 2 3 "O" 5 "O" 7 8 9])
+  (testing "Returns correct immediate wins for board with multiple immediate wins available"
+    (is (= '([1 2 3] [2 5 8] [1 5 9]) (possible-immediate-wins multi-win-board "O"))))
+  (testing "Returns empty set for board with no immediate wins available"
+    (is (= '() (possible-immediate-wins no-wins-board "X")))))
