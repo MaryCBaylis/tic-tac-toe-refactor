@@ -2,7 +2,6 @@
   (:require [clojure.test :refer :all]
             [tic-tac-toe-refactor.core :refer :all]
             [tic-tac-toe-refactor.board :refer :all]
-            [tic-tac-toe-refactor.player :refer :all]
             [tic-tac-toe-refactor.computer :refer :all]))
 ;;example
 ; (deftest a-test
@@ -21,7 +20,7 @@
   (testing "Returns false if player has no wins"
     (is (= false (check-for-win '(1 2 5 7))))))
 
-(deftest test-win?
+(deftest test-win-by-mark?
   (def x-board ["X" "O" 3 "X" "O" 6 "X" 8 9])
   (def o-board ["O" "X" 3 "O" "X" 6 "O" 8 9])
   (def v-board [1 "X" 3 4 "X" 6 7 "X" 9])
@@ -79,11 +78,11 @@
   (def empty-board [1 2 3 4 5 6 7 8 9])
   (def played-board ["O" "O" 3 4 "O" "X" 7 8 9])
   (testing "Returns correct possible wins for X on board with plays already made"
-    (is (= '([7 8 9] [3 6 9]) (possible-wins played-board (unclaimed-squares played-board) "X"))))
+    (is (= '([7 8 9] [3 6 9]) (possible-wins played-board "X"))))
   (testing "Returns correct possible wins for O on board with plays already made"
-    (is (= '([1 2 3] [7 8 9] [1 4 7] [2 5 8] [1 5 9] [3 5 7]) (possible-wins played-board (unclaimed-squares played-board) "O"))))
+    (is (= '([1 2 3] [7 8 9] [1 4 7] [2 5 8] [1 5 9] [3 5 7]) (possible-wins played-board "O"))))
   (testing "Returns all possible wins for empty board"
-    (is (= '([1 2 3] [4 5 6] [7 8 9] [1 4 7] [2 5 8] [3 6 9] [1 5 9] [3 5 7]) (possible-wins empty-board (unclaimed-squares empty-board) "X")))))
+    (is (= '([1 2 3] [4 5 6] [7 8 9] [1 4 7] [2 5 8] [3 6 9] [1 5 9] [3 5 7]) (possible-wins empty-board "X")))))
 
 (deftest test-possible-immediate-wins
   (def multi-win-board ["O" "O" 3 4 "O" "X" 7 8 9])
@@ -92,3 +91,8 @@
     (is (= '([1 2 3] [2 5 8] [1 5 9]) (possible-immediate-wins multi-win-board "O"))))
   (testing "Returns empty set for board with no immediate wins available"
     (is (= '() (possible-immediate-wins no-wins-board "X")))))
+
+(deftest test-square-to-win
+  (def board ["O" "O" 3 4 5 "X" 7 8 9])
+  (testing "Returns correct square needed for win"
+    (is (= 3 (square-to-win board "O")))))

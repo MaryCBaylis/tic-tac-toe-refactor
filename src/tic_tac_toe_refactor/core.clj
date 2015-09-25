@@ -3,8 +3,7 @@
   (:require [tic-tac-toe-refactor.data :as data]
     [clojure.string :as string]
     [tic-tac-toe-refactor.board :as board]
-    [tic-tac-toe-refactor.computer :as comp]
-    [tic-tac-toe-refactor.player :as player]))
+    [tic-tac-toe-refactor.computer :as comp]))
 
 (defn get-input
   []

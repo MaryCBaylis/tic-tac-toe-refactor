@@ -2,8 +2,7 @@
   (:gen-class)
   (:require [tic-tac-toe-refactor.data :as data]
     [clojure.string :as string]
-    [clojure.set :as set]
-    [tic-tac-toe-refactor.player :as player]))
+    [clojure.set :as set]))
 
 (defn create
   []
