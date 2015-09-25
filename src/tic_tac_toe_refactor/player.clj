@@ -17,3 +17,14 @@
 (defn win?
   [board mark]
   (check-for-win (claimed-squares board mark)))
+
+(defn possible-wins
+  [board unclaimed-squares mark]
+  (def opponent-squares (set/difference 
+                          (into #{} data/initial-board)
+                          unclaimed-squares 
+                          (claimed-squares board mark)))  
+  (filter #(empty? 
+            (set/intersection 
+              opponent-squares
+              (into #{} %))) data/possible-wins))

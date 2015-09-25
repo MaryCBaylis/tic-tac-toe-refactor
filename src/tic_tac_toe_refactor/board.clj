@@ -32,8 +32,3 @@
 (defn game-over?
   [board mark-1 mark-2]
   (or (full? board) (player/win? board mark-1) (player/win? board mark-2)))
-
-(defn possible-wins-for-player
-  [board mark]
-
-  )
