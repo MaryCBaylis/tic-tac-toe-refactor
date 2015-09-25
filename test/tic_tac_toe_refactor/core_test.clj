@@ -29,21 +29,21 @@
   (def d-board ["X" 2 3 4 "X" 6 7 8 "X"])
   (def no-board [1 2 3 4 5 6 7 8 9])
   (testing "X should win"
-    (is (= true (win? x-board "X"))))
+    (is (= true (win-by-mark? x-board "X"))))
   (testing "O should lose"
-    (is (= false (win? x-board "O"))))
+    (is (= false (win-by-mark? x-board "O"))))
   (testing "O should win"
-    (is (= true (win? o-board "O"))))
+    (is (= true (win-by-mark? o-board "O"))))
   (testing "X should lose"
-    (is (= false (win? o-board "X"))))
+    (is (= false (win-by-mark? o-board "X"))))
   (testing "Vertical wins should return true"
-    (is (= true (win? v-board "X"))))
+    (is (= true (win-by-mark? v-board "X"))))
   (testing "Horizontal wins should return true"
-    (is (= true (win? h-board "O"))))
+    (is (= true (win-by-mark? h-board "O"))))
   (testing "Diagonal wins should return true"
-    (is (= true (win? d-board "X"))))
+    (is (= true (win-by-mark? d-board "X"))))
   (testing "No wins should return false"
-    (is (= false (win? no-board "O")))))
+    (is (= false (win-by-mark? no-board "O")))))
 
 (deftest test-full?
   (def full-board ["O" "X" "O" "X" "O" "X" "O" "X" "O"])

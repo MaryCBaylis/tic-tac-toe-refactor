@@ -29,6 +29,21 @@
   [board]
   (empty? (unclaimed-squares board)))
 
+(defn claimed-squares-by-mark
+  [board mark]
+  (map inc (map first 
+    (filter #(= (second %) mark) 
+      (map-indexed vector board)))))
+
+(defn check-for-win
+  [squares]
+  (set/subset? #{true} (into #{} (for [win data/possible-wins]
+    (set/subset? (into #{} win) (into #{} squares))))))
+
+(defn win-by-mark?
+  [board mark]
+  (check-for-win (claimed-squares-by-mark board mark)))
+
 (defn game-over?
   [board mark-1 mark-2]
-  (or (full? board) (player/win? board mark-1) (player/win? board mark-2)))
+  (or (full? board) (win-by-mark? board mark-1) (win-by-mark? board mark-2)))

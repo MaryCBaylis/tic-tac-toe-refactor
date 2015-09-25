@@ -40,9 +40,9 @@
 
 (defn end-game-message
   [board]
-  (if (player/win? board "X")
+  (if (board/win-by-mark? board "X")
       data/player-win
-      (if (player/win? board "Y")
+      (if (board/win-by-mark? board "Y")
           data/computer-win
           data/tie)))
 
