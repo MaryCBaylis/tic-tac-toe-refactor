@@ -28,29 +28,23 @@
 (defn computer-phase
   [board]
   (println (board/prettify board))
-  board)
-  ;;THIS is where it gets fun.  Let's make a ruthless comp!
-  ;;Steps to never lose, in order of priority:
-  ;;1: If you're one move away from victory, take it
-  ;;2: If your opponent is one move away from victory, block!
-  ;;3: Take the move that will allow you the most lanes to victory)
-
-;;If I have time, maybe make the compy learn from losses, assuming the player plays again and again
+  (def choice (comp/pick-square board data/computer-mark data/player-mark))
+  (board/refresh board data/computer-mark choice))
 
 (defn end-game-message
   [board]
-  (if (board/win-by-mark? board "X")
+  (if (board/win-by-mark? board data/player-mark)
       data/player-win
-      (if (board/win-by-mark? board "Y")
+      (if (board/win-by-mark? board data/computer-mark)
           data/computer-win
           data/tie)))
 
 (defn game-loop
   [board player message]
-  ;;Check for victory or stalemate, first thing
+  (println)
   (if (board/game-over? board data/player-mark data/computer-mark)
-      (do (println (board/prettify board))
-          (println (end-game-message board))
+      (do (println (end-game-message board))
+          (println (board/prettify board))
           (println data/ask-again)
           (if (play? (get-input))
               (recur (board/create) :player data/start-message)))

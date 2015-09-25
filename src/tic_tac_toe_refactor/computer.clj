@@ -36,15 +36,26 @@
 
 (defn most-potent-squares
   [board mark]
-  (def squares-and-count (remove 
-                            #(set/subset? 
-                              (set [(first %)]) 
-                              (into #{} (board/claimed-squares-by-mark board mark))) 
-                            (frequencies (flatten (possible-wins board mark)))))
-  (def highest-count (apply max (vals squares-and-count)))
-  (keys (filter #(= highest-count (val %)) squares-and-count)))
+  (if (not-empty (possible-wins board mark))
+    (do
+      (def squares-and-count (remove 
+                                #(set/subset? 
+                                  (set [(first %)]) 
+                                  (into #{} (board/claimed-squares-by-mark board mark))) 
+                                (frequencies (flatten (possible-wins board mark)))))
+      (def highest-count (apply max (vals squares-and-count)))
+      (keys (filter #(= highest-count (val %)) squares-and-count)))
+    (board/unclaimed-squares board)))
 
 (defn potent-square-choice
   [board mark]
   (def potent-squares (most-potent-squares board mark))
   (nth potent-squares (rand-int (count potent-squares))))
+
+(defn pick-square
+  [board mark opponent-mark]
+  (if (not-empty (possible-immediate-wins board mark))
+    (square-to-win board mark)
+    (if (not-empty (possible-immediate-wins board opponent-mark))
+      (square-to-win board opponent-mark)
+      (potent-square-choice board mark))))
