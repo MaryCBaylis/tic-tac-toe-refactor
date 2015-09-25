@@ -14,7 +14,12 @@
 
 (defn play?
   [input]
-  (some #{input} data/affirmative-list))
+  (if (some #{input} data/affirmative-list)
+    true
+    (do 
+      (if (not-any? #{input} data/negative-list)
+          (println "I have no idea what you just said.... So..."))
+      false)))
 
 (defn player-phase
   [board]
@@ -56,7 +61,6 @@
 (defn -main
   [& args]
   (println data/welcome-message)
-
   (if (play? (get-input))
       (game-loop (board/create) :player data/start-message))
   (println data/farewell))
