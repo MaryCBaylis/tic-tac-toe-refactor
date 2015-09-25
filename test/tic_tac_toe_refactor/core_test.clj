@@ -29,11 +29,11 @@
   (def no-board [1 2 3 4 5 6 7 8 9])
   (testing "X should win"
     (is (= true (win-by-mark? x-board "X"))))
-  (testing "O should lose"
+  (testing "O should not win"
     (is (= false (win-by-mark? x-board "O"))))
   (testing "O should win"
     (is (= true (win-by-mark? o-board "O"))))
-  (testing "X should lose"
+  (testing "X should not win"
     (is (= false (win-by-mark? o-board "X"))))
   (testing "Vertical wins should return true"
     (is (= true (win-by-mark? v-board "X"))))
@@ -96,3 +96,19 @@
   (def board ["O" "O" 3 4 5 "X" 7 8 9])
   (testing "Returns correct square needed for win"
     (is (= 3 (square-to-win board "O")))))
+
+(deftest test-most-potent-squares
+  (def board ["O" 2 "X" 4 "O" 6 "X" 8 9])
+  (testing "Returns the correct square as the most potent choice"
+    (is (= '(9) (most-potent-squares board "X"))))
+  (testing "Returns the correct list of squares as the most potent choice when there are multiple choices"))
+
+(deftest test-potent-square-choice
+  (def multi-board [1 2 3 4 "O" 6 7 8 9])
+  (def single-board ["X" 2 "X" 4 "O" 6 "X" 8 9])
+  (testing "Returns a square that is one of the most potent choices for O when there are multiple possibilities"
+    (is (clojure.set/subset? #{(potent-square-choice multi-board "O")} (into #{} (most-potent-squares multi-board "O")))))
+  (testing "Returns a square that is one of the most potent choices for X when there are multiple possibilities"
+    (is (clojure.set/subset? #{(potent-square-choice multi-board "X")} (into #{} (most-potent-squares multi-board "X")))))
+  (testing "Returns the only square that is the most potent choice"
+    (is (= 9 (potent-square-choice single-board "X")))))
